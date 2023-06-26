@@ -60,4 +60,15 @@ a{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    list-style: none;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    
 }
+
+.realisateur li{
+    margin:1% 1%;
+    text-align: center;
+}
+
+

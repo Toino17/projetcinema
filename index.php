@@ -18,32 +18,32 @@ include("tableaufilm.php");
                 <a href="index.php?filtre=genre"><li>Genre</li></a>
                 <a href="index.php?filtre=realisateur"><li>Réalisateur</li></a>
             </ul>
-            <?php
-                 if (isset($_GET['filtre']) & ($_GET['filtre'])=='genre') {
-                    $filtre = $_GET['filtre'];
-                        echo '<ul class=\'genre\'>
-                        <a href="index.php?filtre='. $filtre .'&genre=Action"><li>Action</li></a>
-                        <a href="index.php?filtre='. $filtre .'&genre=Animation"><li>Animation</li></a>
-                        <a href="index.php?filtre='. $filtre .'&genre=Aventure"><li>Aventure</li></a>
-                        <a href="index.php?filtre='. $filtre .'&genre=Comédie"><li>Comédie</li></a>
-                        <a href="index.php?filtre='. $filtre .'&genre=Drame"><li>Drame</li></a>
-                        <a href="index.php?filtre='. $filtre .'&genre=Famille"><li>Famille</li></a>
-                        <a href="index.php?filtre='. $filtre .'&genre=Fantastique"><li>Fantastique</li></a>
-                        <a href="index.php?filtre='. $filtre .'&genre=Historique"><li>Historique</li></a>
-                        <a href="index.php?filtre='. $filtre .'&genre=Thriller"><li>Thriller</li></a>
-                        <a href="index.php?filtre='. $filtre .'&genre=sciences-fiction"><li>Sciences-Fiction</li></a>
-                        </ul>';
-                 }
 
-                 if (isset($_GET['filtre']) & ($_GET['filtre'])=='realisateur') {
-                    $filtre = $_GET['filtre'];
+            <?php
+                 if (isset($_GET['filtre']) && ($_GET['filtre'])=='genre'){ 
+                 $filtre = $_GET['filtre'];
+                 $genresAffiches = array();
+                     echo '<ul class=\'genre\'>';
+
                     foreach ($listfilm as $film => $value) {
-                        echo '<ul class=\'realisateur\'>
-                        <a href="index.php?filtre='. $filtre .'&realisateur='. $value['realisateur'] .'"><li>'. $value['realisateur'] .'</li></a>';
+                        if (!in_array($value['genre'], $genresAffiches)) {
+                            echo '<a href="index.php?filtre='. $filtre .'&genre='. $value['genre'] .'"><li>'. $value['genre'] .'</li></a>';
+                            $genresAffiches[] = $value['genre'];
                         '</ul>';
                     }
                  }
-
+                 }
+                 
+                 if (isset($_GET['filtre']) && ($_GET['filtre'])=='realisateur') {
+                     $filtre = $_GET['filtre'];
+                        echo '<ul class=\'realisateur\'>';
+                    foreach ($listfilm as $film => $value) {
+                        echo
+                        '<a href="index.php?filtre='. $filtre .'&realisateur='. $value['realisateur'] .'"><li>'. $value['realisateur'] .'</li></a>';
+                        '</ul>';
+                    }
+                 }
+                
             ?>
         </nav>
     </header>
@@ -73,6 +73,3 @@ include("tableaufilm.php");
 </section>    
 </body>
 </html>
-Denis Imbert, Aaron Horvath, Michael Jelenic, Joaquim Dos Santos, Kemp Powers, Justin Thompsom, David F. Sandberg, Legrand Bemba-Debert, Jennifer Devoldère, Guillaume Maidatchevsky, 
-François Ozon, James Gunn, Martin Bourboulon, Mette Rank-Tange, Benjamin Quabeck, Cécilia Rouaud, Dany Boon, Oleh Malamuzh, Oleksandra Ruban, Rob Marshall, Victoria Bedos, Lisa Azuelos,
-Franck Cimière, Jeanne Herry, Chad Stahelski, Jonathan Barré, Jonathan Goldstein (XII), John Francis Daley, François Pirot, Romain Quirot, Ludovic Bernard, Scott Beck, Bryan Woods
