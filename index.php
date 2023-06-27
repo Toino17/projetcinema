@@ -22,25 +22,38 @@ include("tableaufilm.php");
             <?php
                  if (isset($_GET['filtre']) && ($_GET['filtre'])=='genre'){ 
                  $filtre = $_GET['filtre'];
-                 $genresAffiches = array();
+                 $genresAffiches =[];
                      echo '<ul class=\'genre\'>';
 
                     foreach ($listfilm as $film => $value) {
-                        if (!in_array($value['genre'], $genresAffiches)) {
-                            echo '<a href="index.php?filtre='. $filtre .'&genre='. $value['genre'] .'"><li>'. $value['genre'] .'</li></a>';
-                            $genresAffiches[] = $value['genre'];
+                        $genre=explode(", ",$value['genre']);
+                        foreach ($genre as $key) {
+                           if (!in_array($key, $genresAffiches)) {
+                            echo '<a href="index.php?filtre='. $filtre .'&genre='. $key .'"><li>'. $key .'</li></a>';
+                            $genresAffiches[] = $key;
                         '</ul>';
+                        }
+                          
+                        }
                     }
-                 }
-                 }
+                }
+                 
                  
                  if (isset($_GET['filtre']) && ($_GET['filtre'])=='realisateur') {
                      $filtre = $_GET['filtre'];
+                     $realAffiches=[];
                         echo '<ul class=\'realisateur\'>';
+
                     foreach ($listfilm as $film => $value) {
-                        echo
-                        '<a href="index.php?filtre='. $filtre .'&realisateur='. $value['realisateur'] .'"><li>'. $value['realisateur'] .'</li></a>';
-                        '</ul>';
+                        $realisateur=explode(", ",$value['realisateur']);
+                        foreach ($realisateur as $keyreal) {
+                            if (!in_array($keyreal, $realAffiches)) {
+                                echo
+                                    '<a href="index.php?filtre='. $filtre .'&realisateur='. $keyreal .'"><li>'. $keyreal .'</li></a>';
+                                    '</ul>';
+                            }
+                        }
+                        
                     }
                  }
                 
@@ -49,25 +62,49 @@ include("tableaufilm.php");
     </header>
 <section class='cardsection'>
     <?php
-
-    foreach ($listfilm as $film => $value) {
-        
-        if ($value['duree'] !== 'inconnu') {
-            $value['duree'] = $value['duree'] / 60;}
-
-        echo     '<div class=\'card\'>
-        <p class=\'title\'>Film: '. $value['name'] .'</p>
-        <div class=\'img_card\'><img src="'. $value['img'] .'" alt="#"></div>
-        <p class=\'date\'>Date de sortie: '. $value['date'] .'</p>
-        <p class=\'realisateur\'>Réalisateur: '. $value['realisateur'] .'</p>
-        <p class=\'duree\'>Durée: '. $value['duree'] .'</p>
-        <p class=\'genre\'>Genre: '. $value['genre'] .'</p>
-        <p class=\'synopsis\'>Synopsis: '. $value['synopsis'] .'</p>
-        <p class=\'bandeannonce\'>Bande-annonce: '. $value['bandeannonce'] .'</p>
-    </div>';
-   
-    }
     
+    
+    if (isset($_GET['genre'])) {
+        
+       
+        foreach ($listfilm as $film => $value) {
+            
+            if ($value['duree'] !== 'inconnu') {
+                $value['duree'] = $value['duree'] / 60;}
+                
+                if ($_GET['genre']==$value['genre']) {
+                    
+                    echo     '<div class=\'card\'>
+                    <p class=\'title\'>Film: '. $value['name'] .'</p>
+                    <div class=\'img_card\'><img src="'. $value['img'] .'" alt="#"></div>
+                    <p class=\'date\'>Date de sortie: '. $value['date'] .'</p>
+                    <p class=\'realisateur\'>Réalisateur: '. $value['realisateur'] .'</p>
+                    <p class=\'duree\'>Durée: '. $value['duree'] .'</p>
+                    <p class=\'genre\'>Genre: '. $value['genre'] .'</p>
+                    <p class=\'synopsis\'>Synopsis: '. $value['synopsis'] .'</p>
+                    <p class=\'bandeannonce\'>Bande-annonce: '. $value['bandeannonce'] .'</p>
+                    </div>';
+                    
+                }    
+            }
+            
+        }   
+        else {
+            foreach ($listfilm as $film => $value) {
+                echo     '<div class=\'card\'>
+                    <p class=\'title\'>Film: '. $value['name'] .'</p>
+                    <div class=\'img_card\'><img src="'. $value['img'] .'" alt="#"></div>
+                    <p class=\'date\'>Date de sortie: '. $value['date'] .'</p>
+                    <p class=\'realisateur\'>Réalisateur: '. $value['realisateur'] .'</p>
+                    <p class=\'duree\'>Durée: '. $value['duree'] .'</p>
+                    <p class=\'genre\'>Genre: '. $value['genre'] .'</p>
+                    <p class=\'synopsis\'>Synopsis: '. $value['synopsis'] .'</p>
+                    <p class=\'bandeannonce\'>Bande-annonce: '. $value['bandeannonce'] .'</p>
+                    </div>';
+            }
+
+        }
+            
     ?>
 
 </section>    
